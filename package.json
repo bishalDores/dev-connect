@@ -5,13 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-<<<<<<< HEAD
     "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
-=======
-    "server": "nodemon server"
->>>>>>> 84a15a93c5fd318071d4f3e45da8ffdedd011126
   },
   "author": "Bishal Peter Dores",
   "license": "MIT",
