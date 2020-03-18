@@ -1,17 +1,17 @@
-import axios from "axios";
-import { setAlert } from "./alert";
+import axios from 'axios';
+import { setAlert } from './alert';
 import {
   GET_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
   ADD_POST
-} from "./types";
+} from './types';
 
 // Get posts
 export const getPosts = () => async dispatch => {
   try {
-    const res = await axios.get("/api/posts");
+    const res = await axios.get('/api/posts');
 
     dispatch({
       type: GET_POSTS,
@@ -21,8 +21,8 @@ export const getPosts = () => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: {
-        msg: err.response.statusText ? err.response.statusText : "",
-        status: err.response.status ? err.response.status : ""
+        msg: err.response.statusText ? err.response.statusText : '',
+        status: err.response.status ? err.response.status : ''
       }
     });
   }
@@ -42,8 +42,8 @@ export const addLike = id => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: {
-        msg: err.response.statusText ? err.response.statusText : "",
-        status: err.response.status ? err.response.status : ""
+        msg: err.response.statusText ? err.response.statusText : '',
+        status: err.response.status ? err.response.status : ''
       }
     });
   }
@@ -61,8 +61,8 @@ export const removeLike = id => async dispatch => {
     dispatch({
       type: POST_ERROR,
       payload: {
-        msg: err.response.statusText ? err.response.statusText : "",
-        status: err.response.status ? err.response.status : ""
+        msg: err.response.statusText ? err.response.statusText : '',
+        status: err.response.status ? err.response.status : ''
       }
     });
   }
@@ -74,20 +74,20 @@ export const deletePost = id => async dispatch => {
     await axios.delete(`/api/posts/${id}`);
 
     dispatch({
-      typ: DELETE_POST,
+      type: DELETE_POST,
       payload: id
     });
     let deletePostPayload = {
-      msg: "Post Removed",
-      alertType: "success"
+      msg: 'Post Removed',
+      alertType: 'success'
     };
     dispatch(setAlert(deletePostPayload));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
       payload: {
-        msg: err.response.statusText ? err.response.statusText : "",
-        status: err.response.status ? err.response.status : ""
+        msg: err.response.statusText ? err.response.statusText : '',
+        status: err.response.status ? err.response.status : ''
       }
     });
   }
@@ -98,19 +98,19 @@ export const addPost = formData => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     };
-    const res = await axios.post("/api/posts", formData, config);
+    const res = await axios.post('/api/posts', formData, config);
     // console.log(res);
 
     dispatch({
-      typ: ADD_POST,
+      type: ADD_POST,
       payload: res.data
     });
     let addPostPayload = {
-      msg: "Post Created",
-      alertType: "success"
+      msg: 'Post Created',
+      alertType: 'success'
     };
     dispatch(setAlert(addPostPayload));
   } catch (err) {
