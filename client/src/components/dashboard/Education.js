@@ -1,39 +1,45 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Moment from 'react-moment';
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Moment from "react-moment";
+import { deleteEducation } from "../../actions/profile";
 
-const Education = ({ education }) => {
+const Education = ({ education, deleteEducation }) => {
   const educations = education
     ? education.map(edu => {
         return (
           <tr key={edu._id}>
             <td>{edu.school}</td>
-            <td className='hide-sm'>{edu.degree}</td>
+            <td className="hide-sm">{edu.degree}</td>
             <td>
-              <Moment format='YYYY/MM/DD'>{edu.from}</Moment> -{' '}
+              <Moment format="YYYY/MM/DD">{edu.from}</Moment> -{" "}
               {edu.to === null ? (
-                ' Now'
+                " Now"
               ) : (
-                <Moment format='YYYY/MM/DD'>{edu.to}</Moment>
+                <Moment format="YYYY/MM/DD">{edu.to}</Moment>
               )}
             </td>
             <td>
-              <button className='btn btn-danger'>Delete</button>
+              <button
+                className="btn btn-danger"
+                onClick={e => deleteEducation(edu._id)}
+              >
+                Delete
+              </button>
             </td>
           </tr>
         );
       })
-    : '';
+    : "";
   return (
     <Fragment>
-      <h2 className='my-2'>Education Credintials</h2>
-      <table className='table'>
+      <h2 className="my-2">Education Credintials</h2>
+      <table className="table">
         <thead>
           <tr>
             <th>School</th>
-            <th className='hide-sm'>Degree</th>
-            <th className='hide-sm'>Years</th>
+            <th className="hide-sm">Degree</th>
+            <th className="hide-sm">Years</th>
           </tr>
         </thead>
         <tbody>{educations}</tbody>
@@ -43,7 +49,12 @@ const Education = ({ education }) => {
 };
 
 Education.propTypes = {
-  education: PropTypes.array.isRequired
+  education: PropTypes.array.isRequired,
+  deleteEducation: PropTypes.func.isRequired
 };
 
-export default Education;
+const mapDispatchToProps = dispatch => ({
+  deleteEducation: id => dispatch(deleteEducation(id))
+});
+
+export default connect(null, mapDispatchToProps)(Education);
